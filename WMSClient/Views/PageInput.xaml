@@ -1,0 +1,101 @@
+﻿<Page x:Class="WMSClient.Views.PageInput"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:WMSClient.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1600"
+      Title="PageInput">
+    <Grid Width="1600" Height="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="800*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Background="#FF679CC9" Foreground="#FF2A6088" Mode="PrimaryDark" Padding="16">
+            <StackPanel>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50" Height="100">
+                    入库作业
+                </TextBlock>
+            </StackPanel>
+        </materialDesign:ColorZone>
+        <Grid Grid.Row="1" Margin="200,100,200,150">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.ColumnSpan="4" Grid.RowSpan="4" BorderBrush="Black" BorderThickness="5" CornerRadius="10"></Border>
+            <Label Content="物料类型:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"></Label>
+            <Label Content="物料数量:" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"></Label>
+            <ComboBox Grid.Column="3" Width="220" Height="50" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0" SelectedValue="{Binding InputAmount,Mode=OneWayToSource}">
+                <ComboBoxItem>0</ComboBoxItem>
+                <!--<ComboBoxItem>1</ComboBoxItem>
+                <ComboBoxItem>2</ComboBoxItem>
+                <ComboBoxItem>3</ComboBoxItem>-->
+                <ComboBoxItem>4</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Grid.Column="1" Width="220" Height="50" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0" SelectedValue="{Binding InputCategory,Mode=OneWayToSource}">
+                <ComboBoxItem>空箱</ComboBoxItem>
+                <ComboBoxItem>盖子</ComboBoxItem>
+                <ComboBoxItem>瓶子</ComboBoxItem>
+            </ComboBox>
+            <Label Content="料盘RFID号：" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="40"></Label>
+            <Label Content="待写入RFID：" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="40"></Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="30" Margin="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding InputOldRFIDNumber}"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" FontSize="30" Margin="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding InputNewRFIDNumber}"></TextBox>
+            <materialDesign:Badged Badge="1" Grid.Row="3" Grid.Column="1" Margin="20">
+                <Button 
+                    Content="入库上料" 
+                    FontSize="40" 
+                    Height="100" Width="200" 
+                    ToolTip="step 1 : Transfer the tray from AGV to the RFID position of the warehousing conveyor."
+                    Command="{Binding InputLoadTrayCommand}">
+                </Button>
+            </materialDesign:Badged>
+            <materialDesign:Badged Badge="2" Grid.Row="1" Grid.Column="3" Margin="20">
+                <Button 
+                    Content="读取RFID" 
+                    FontSize="40" 
+                    Height="100" Width="200"
+                    ToolTip="step 2 : Read the RFID Number when the tray reaches the specified position."
+                    Command="{Binding ReadRFIDCommand}">
+                </Button>
+            </materialDesign:Badged>
+            <materialDesign:Badged Badge="3" Grid.Row="2" Grid.Column="3" Margin="20">
+                <Button 
+                    Content="生成RFID" 
+                   FontSize="40" 
+                    Height="100" Width="200"
+                    ToolTip="step 3 : According to the actual situation, select the appropriate material type and quantity."
+                    Command="{Binding CreateRFIDCommand}">
+                </Button>
+            </materialDesign:Badged>
+            <materialDesign:Badged Badge="4" Grid.Row="3" Grid.Column="2" Margin="20">
+                <Button 
+                    Content="写入RFID" 
+                    FontSize="40" 
+                    Height="100" Width="200"
+                    ToolTip="step 4 : Write the created RFID Number into the label on the tray."
+                    Command="{Binding WriteRFIDCommand}">
+                </Button>
+            </materialDesign:Badged>
+            <materialDesign:Badged Badge="5" Grid.Row="3" Grid.Column="3" Margin="20">
+                <Button 
+                    Content="入库执行" 
+                    FontSize="40" 
+                    Height="100" Width="200"
+                    ToolTip="step 5 : Transfer the tray to a storage location."
+                    Command="{Binding InputCommand}"></Button>
+            </materialDesign:Badged>
+        </Grid>
+    </Grid>
+</Page>

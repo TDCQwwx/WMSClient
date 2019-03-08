@@ -1,0 +1,62 @@
+﻿<Page x:Class="WMSClient.Views.PageQueryStorageInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:WMSClient.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1600"
+      Title="PageQueryStorageInfo">
+    <Grid Width="1600" Height="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="700*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Background="#FF679CC9" Foreground="#FF2A6088" Mode="PrimaryDark" Padding="16">
+            <StackPanel>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50" Height="100">
+                    库位查询
+                </TextBlock>
+            </StackPanel>
+        </materialDesign:ColorZone>
+        <Button Content="查询" Grid.Row="1" FontSize="40" Width="200" Height="80" Margin="1200 0 0 0"  Command="{Binding StoragesQueryCommand}"></Button>
+        <Grid Grid.Row="2" Margin="60,20,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="41*"/>
+                <ColumnDefinition Width="19*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="0,0,2,0.4" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="644*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="dataGrid" CanUserAddRows="False" HeadersVisibility="Column" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding StoragesList}" Style="{StaticResource MaterialDesignDataGrid}" Grid.ColumnSpan="2" LoadingRow="dataGrid_LoadingRow">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Header=" 序号" Width="80" MinWidth="10" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGridRow}}, Path=Header}" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" FontSize="20"></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" ElementStyle="{StaticResource DataGridTextColumnCenterSytle}" Binding="{Binding Location}" Header="库位号"  FontSize="20" Width="280"/>
+                        <DataGridTextColumn HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" ElementStyle="{StaticResource DataGridTextColumnCenterSytle}" Binding="{Binding Category}" Header="物料类型" FontSize="20" Width="280"/>
+                        <DataGridTextColumn HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" ElementStyle="{StaticResource DataGridTextColumnCenterSytle}" Binding="{Binding Amount}" Header="物料数量" FontSize="20" Width="280"/>
+                        <DataGridTemplateColumn Header="操作" Width="550" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="修改库位信息" Style="{DynamicResource OperationButton}" IsEnabled="{Binding EditStoragesInfo}" CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}" Command="{Binding DataContext.EditStoragesInfoCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}" FontSize="20" Margin="100,10,0,10"/>
+                                        <Button Content="出库作业" Style="{DynamicResource OperationButton}" IsEnabled="{Binding EditOutput}" CommandParameter="{Binding Location}" Command="{Binding DataContext.OutputCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"  FontSize="20" Margin="80,10,0,10"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

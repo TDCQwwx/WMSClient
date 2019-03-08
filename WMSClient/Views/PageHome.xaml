@@ -1,0 +1,45 @@
+﻿<Page x:Class="WMSClient.Views.PageHome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:WMSClient.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1600"
+      Title="PageHome">
+    <Grid Width="1600" Height="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="800*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Background="#FF679CC9" Foreground="#FF2A6088" Mode="PrimaryDark" Padding="16">
+            <StackPanel>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50" Height="100">
+                    主页
+                </TextBlock>
+            </StackPanel>
+        </materialDesign:ColorZone>
+
+        <Grid Grid.Row="1" Margin="100">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.RowSpan="4" BorderBrush="Black" BorderThickness="5" CornerRadius="10" Margin="5"></Border>
+            <Border Grid.RowSpan="4" Grid.Column="1" BorderBrush="Black" BorderThickness="5" CornerRadius="10" Margin="5"></Border>
+            <Label Grid.Row="0" Grid.Column="0" Content="模式选择" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="50"></Label>
+            <Label Grid.Row="0" Grid.Column="1" Content="初始化操作" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="50"></Label>
+            <RadioButton Name="RadioButtonOffline" Grid.Row="2" Content="离线模式" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="35" Style="{StaticResource radBase}" Checked="RadioButtonOffline_Checked"></RadioButton>
+            <RadioButton Name="RadioButtonOnline" Grid.Row="1" Content="联机模式" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="35" Style="{StaticResource radBase}" Checked="RadioButtonOnline_Checked"></RadioButton>
+            <Button Content="确认" FontSize="50" Grid.Row="3" Margin="100,20" Style="{StaticResource ButtonStyleHomePage}" Command="{Binding ConfirmOperationModeCommand}"></Button>
+            <Button Content="初始化" FontSize="50" Grid.Row="2" Grid.Column="1" Margin="100,20" Style="{StaticResource ButtonStyleHomePage}" Command="{Binding InitializeCommand}"></Button>
+        </Grid>
+    </Grid>
+</Page>
